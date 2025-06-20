@@ -34,4 +34,5 @@ public class Contato {
         this.telefone = telefone;
         this.email = email;
     }
+
 }
