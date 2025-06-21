@@ -35,4 +35,6 @@ public class Contato {
         this.email = email;
     }
 
+    public Contato(){ 
+    }
 }
