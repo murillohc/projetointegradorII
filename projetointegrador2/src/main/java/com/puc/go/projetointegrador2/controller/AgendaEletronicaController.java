@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("agendaEletronica")
@@ -30,5 +32,15 @@ public class AgendaEletronicaController {
     @GetMapping("/contatos")    
     public List<Contato> listarTodosContatos(){
         return contatoRepository.findAll();
+
+    @GetMapping("/contato/{name}")
+    public ResponseEntity<Contato> buscarPorNome(@PathVariable String name) {
+        Optional<Contato> contato = Optional.ofNullable(contatoRepository.findByName(name));
+
+        if (contato.isPresent()) {
+            return ResponseEntity.ok(contato.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
