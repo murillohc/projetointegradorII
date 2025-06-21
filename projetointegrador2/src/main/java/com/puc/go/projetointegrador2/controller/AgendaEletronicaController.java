@@ -5,10 +5,9 @@ import com.puc.go.projetointegrador2.contato.ContatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("agendaEletronica")
@@ -21,5 +20,16 @@ public class AgendaEletronicaController {
     public ResponseEntity<Contato> criarContato(@RequestBody Contato contato) {
         Contato novoContato = contatoRepository.save(contato);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoContato);
+    }
+
+    @GetMapping("/contato/{name}")
+    public ResponseEntity<Contato> buscarPorNome(@PathVariable String name) {
+        Optional<Contato> contato = Optional.ofNullable(contatoRepository.findByName(name));
+
+        if (contato.isPresent()) {
+            return ResponseEntity.ok(contato.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
