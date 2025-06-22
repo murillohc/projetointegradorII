@@ -35,4 +35,8 @@ public class Contato {
         this.email = email;
     }
 
+    public Contato() {
+        // construtor padrão vazio obrigatório para JPA/Hibernate
+    }
+
 }
