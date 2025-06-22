@@ -38,5 +38,4 @@ public class Contato {
     public Contato() {
         // construtor padrão vazio obrigatório para JPA/Hibernate
     }
-
 }
