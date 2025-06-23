@@ -27,11 +27,13 @@ public class AgendaEletronicaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoContato);
     }
 
-    @GetMapping("/contatos")    
-    public List<Contato> listarTodosContatos(){
-        return contatoRepository.findAll();
+    @GetMapping
+    public ResponseEntity<List<Contato>> listarTodosContatos() {
+       List<Contato> contatos = contatoRepository.findAll();
+       return ResponseEntity.ok(contatos);
+    }
 
-    @GetMapping("/contato/{nome}")
+    @GetMapping("/{nome}")
     public ResponseEntity<Contato> buscarPorNome(@PathVariable String nome) {
         Optional<Contato> contato = Optional.ofNullable(contatoRepository.findByNome(nome));
 
@@ -52,3 +54,5 @@ public class AgendaEletronicaController {
         return ResponseEntity.notFound().build();
     }
 }
+
+
